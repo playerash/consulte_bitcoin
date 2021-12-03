@@ -15,31 +15,42 @@ class _HomePageState extends State<HomePage> {
   var bloc = BitcoinBloc();
   @override
   void initState() {
-    //bloc.add(BitcoinSendEvent());
-    teste();
+    timer();
     super.initState();
   }
 
-  teste() {
+  timer() {
     bloc.add(BitcoinSendEvent());
-    Timer(Duration(seconds: 2), teste);
+    Timer(const Duration(seconds: 2), timer);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           children: [
-            Image.asset("assets/bitcoin.png"),
+            SizedBox(
+              width: 300,
+              height: 100,
+              child: Image.asset(
+                "assets/bitcoin.png",
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               child: BlocBuilder<BitcoinBloc, String>(
                 bloc: bloc,
                 builder: (context, state) {
-                  print(state);
-                  return Text(state, style: const TextStyle(fontSize: 26),);
+                  return Text(
+                    state,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
                 },
               ),
             ),
